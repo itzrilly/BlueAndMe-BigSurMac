@@ -3,16 +3,16 @@ import { View, Text, Image, StyleSheet } from 'react-native'
 import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator } from 'react-navigation-tabs'
-import Login from '../Components/Login'
-import Home from '../Components/Home'
-import Product from '../Components/Product'
-import Service from '../Components/Service'
-import Support from '../Components/Support'
-import Menu from '../Components/Menu'
+import Login from '../pages/Login'
+import Home from '../pages/Home'
+import Product from '../pages/Product'
+import Service from '../pages/Service'
+import Support from '../pages/Support'
+import Menu from '../pages/Menu'
 
 const BlueTabNavigator = createBottomTabNavigator({
-    Home: { screen: Home },
-    Product: { screen: Product },
+    Accueil: { screen: Home },
+    Produit: { screen: Product },
     Service: { screen: Service },
     Support: { screen: Support },
     Menu: { screen: Menu }
@@ -21,19 +21,19 @@ const BlueTabNavigator = createBottomTabNavigator({
     defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, tintColor }) => {
             const { routeName } = navigation.state
-            if(routeName === 'Home'){
+            if(routeName === 'Accueil'){
                 return (
                     <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../Images/ic_home.png')}
+                            source={require('../assets/images/ic_home.png')}
                             style={styles.icon} />
                     </View>
                 )
-            }else if(routeName === 'Product'){
+            }else if(routeName === 'Produit'){
                 return (
                     <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../Images/ic_product.png')}
+                            source={require('../assets/images/ic_product.png')}
                             style={styles.icon} />
                     </View>  
                 ) 
@@ -41,7 +41,7 @@ const BlueTabNavigator = createBottomTabNavigator({
                 return (
                     <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image  
-                            source={require('../Images/ic_service.png')}
+                            source={require('../assets/images/ic_service.png')}
                             style={styles.icon} />   
                     </View>
                 )
@@ -49,7 +49,7 @@ const BlueTabNavigator = createBottomTabNavigator({
                 return (
                     <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image  
-                            source={require('../Images/ic_support.png')}
+                            source={require('../assets/images/ic_support.png')}
                             style={styles.icon} />     
                     </View>
                 )
@@ -57,7 +57,7 @@ const BlueTabNavigator = createBottomTabNavigator({
                 return (
                     <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../Images/ic_menu.png')}
+                            source={require('../assets/images/ic_menu.png')}
                             style={styles.icon} />
                     </View>
                 )
@@ -93,7 +93,7 @@ const Navigation = createStackNavigator({
 },
 {
     headerMode: 'none',
-    initialRouteName: 'Home'
+    initialRouteName: 'Login'
 })
   
 const styles = StyleSheet.create({
