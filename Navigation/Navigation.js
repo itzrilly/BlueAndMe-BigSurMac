@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
-import { createStackNavigator } from 'react-navigation-stack'
-import { createAppContainer } from 'react-navigation'
-import { createBottomTabNavigator } from 'react-navigation-tabs'
+import { View, Image, StyleSheet } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
 import Product from '../pages/Product'
@@ -10,97 +10,110 @@ import Service from '../pages/Service'
 import Support from '../pages/Support'
 import Menu from '../pages/Menu'
 
-const BlueTabNavigator = createBottomTabNavigator({
-    Accueil: { screen: Home },
-    Produit: { screen: Product },
-    Service: { screen: Service },
-    Support: { screen: Support },
-    Menu: { screen: Menu }
-},
-{
-    defaultNavigationOptions: ({ navigation }) => ({
-        tabBarIcon: ({ focused, tintColor }) => {
-            const { routeName } = navigation.state
-            if(routeName === 'Accueil'){
-                return (
-                    <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
+const BlueStack = createNativeStackNavigator()
+const BlueTab = createBottomTabNavigator()
+
+const BlueTabNavigator = () => {
+    return (
+        <BlueTab.Navigator screenOptions={ { 
+            tabBarStyle:{
+                shadowColor: 'rgba(0,0.0,0,1)',
+                showLabel: { width: 0, height: 0 },
+                shadowOpacity: 0.1,
+                shadowRadius: 30,
+                elevation: 10,
+                backgroundColor: '#fff',
+            },
+            tabBarShowLabel: true,
+        }}>
+            <BlueTab.Screen name='Accueil' component={Home} options = {{
+                headerShown: false,
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
                             source={require('../assets/images/ic_home.png')}
                             style={styles.icon} />
                     </View>
-                )
-            }else if(routeName === 'Produit'){
-                return (
-                    <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
+            }} />
+            <BlueTab.Screen name='Produit' component={Product} options={{
+                headerShown: false,
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
                             source={require('../assets/images/ic_product.png')}
                             style={styles.icon} />
-                    </View>  
-                ) 
-            }else if(routeName === 'Service'){
-                return (
-                    <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
-                        <Image  
+                    </View>
+            }} />
+            <BlueTab.Screen name='Service' component={Service} options={{
+                headerShown: false,
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
+                        <Image 
                             source={require('../assets/images/ic_service.png')}
-                            style={styles.icon} />   
+                            style={styles.icon} />
                     </View>
-                )
-            }else if(routeName === 'Support'){
-                return (
-                    <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
-                        <Image  
+            }} />
+            <BlueTab.Screen name='Support' component={Support} options={{
+                headerShown: false,
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
+                        <Image 
                             source={require('../assets/images/ic_support.png')}
-                            style={styles.icon} />     
+                            style={styles.icon} />
                     </View>
-                )
-            }else{
-                return (
-                    <View style={{ flex: 1, justifyContent: 'flex-end', borderTopColor: focused ? tintColor : '', borderTopWidth: focused ? 2 : 0 }}>
+            }} />
+            <BlueTab.Screen name='Menu' component={Menu} options={{
+                headerShown: false,
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
                             source={require('../assets/images/ic_menu.png')}
                             style={styles.icon} />
                     </View>
-                )
-            }
-        }
-    }),
-    tabBarOptions: {
-        activeTintColor: 'blue',
-        inactiveTintColor: 'rgba(0,0.0,0,6)',
-        showLabel: true,
-        showIcon: true,
-        style: {
-            shadowColor: 'rgba(0,0.0,0,6)',
-            showLabel: { width: 0, height: 0 },
-            shadowOpacity: 0.1,
-            shadowRadius: 15,
-            elevation: 5,
-            borderTopColor: 'transparent',
-            backgroundColor: '#fff',
-            borderTopLeftRadius: 20,
-            borderTopRightRadius: 20
-        }
-    }
-})
+            }} />
+        </BlueTab.Navigator>
+    )
+}
 
-const Navigation = createStackNavigator({
-    Login: { screen: Login },
-    Home: { screen: BlueTabNavigator },
-    Product: { screen: Product },
-    Service: { screen: Service },
-    Support: { screen: Support },
-    Menu: { screen: Menu }
-},
-{
-    headerMode: 'none',
-    initialRouteName: 'Login'
-})
-  
+const Navigation = () => {
+    return (
+        <NavigationContainer>
+            <BlueStack.Navigator initialRouteName='Login'>
+                <BlueStack.Screen
+                    name='Login'
+                    component={Login}
+                    options={{ headerShown: false }}
+                />
+                <BlueStack.Screen
+                    name='Home'
+                    component={BlueTabNavigator}
+                    options={{ headerShown: false }}
+                />
+                <BlueStack.Screen
+                    name='Product'
+                    component={Product}
+                    options={{ headerShown: false }}
+                />
+                <BlueStack.Screen
+                    name='Service'
+                    component={Service}
+                    options={{ headerShown: false }}
+                />
+                <BlueStack.Screen
+                    name='Support'
+                    component={Support}
+                    options={{ headerShown: false }}
+                />
+                <BlueStack.Screen
+                    name='Menu'
+                    component={Menu}
+                    options={{ headerShown: false }}
+                />
+            </BlueStack.Navigator>
+        </NavigationContainer>
+    )
+}
+
+export default Navigation
+
 const styles = StyleSheet.create({
     icon: {
       width: 23,
       height: 23
     }
 })
-
-export default createAppContainer(Navigation)

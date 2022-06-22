@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, ScrollView, ImageBackground, Dimensions, TextInput, Image, Button } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, ImageBackground, Dimensions, TextInput, Image, Button, TouchableOpacity } from 'react-native'
 import CheckBox from '@react-native-community/checkbox'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useNavigation } from "@react-navigation/native";
 
-function Login(){
+const Login = () => {
+    const navigation = useNavigation()
+
     const [toggleCheckBox, setToggleCheckBox] = useState(0)
-
     const [decimalInput, setDecimalInput] = useState('')
+
     const validator = /^[+-]?\d*(?:[.,]\d*)?$/;
 
     function onNumberInputChange(text){
@@ -94,7 +96,7 @@ function Login(){
                     {/* Login Button */}
                     <View style={styles.lg_btn_container}>
                         <TouchableOpacity
-                            onPress={ () => {} }
+                            onPress={ () => navigation.navigate('Home') }
                             style={styles.btn_login}
                         >
                             <Text style={styles.text_lg_btn}>Se connecter</Text>
