@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Login from '../pages/Login'
 import Home from '../pages/Home'
-import Product from '../pages/Product'
+// import Product from '../pages/Product'
 import Service from '../pages/Service'
 import Support from '../pages/Support'
 import Menu from '../pages/Menu'
@@ -22,48 +22,80 @@ const BlueTabNavigator = () => {
                 shadowOpacity: 0.1,
                 shadowRadius: 30,
                 elevation: 10,
-                backgroundColor: '#fff',
+                backgroundColor: '#fff'
             },
             tabBarShowLabel: true,
         }}>
             <BlueTab.Screen name='Accueil' component={Home} options = {{
                 headerShown: false,
-                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
-                        <Image 
-                            source={require('../assets/images/icons/ic_home.png')}
-                            style={styles.icon} />
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'dodgerblue' : '', borderTopWidth: focused ? 2 : 0 }}>
+                        { focused ? (
+                            <Image 
+                                source={require('../assets/images/icons/ic_home_blue.png')}
+                                style={styles.icon} />
+                        ) : (
+                            <Image 
+                                source={require('../assets/images/icons/ic_home.png')}
+                                style={styles.icon} />
+                        )}
                     </View>
             }} />
+            {/*
             <BlueTab.Screen name='Produit' component={Product} options={{
                 headerShown: false,
-                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
-                        <Image 
-                            source={require('../assets/images/icons/ic_product.png')}
-                            style={styles.icon} />
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'dodgerblue' : '', borderTopWidth: focused ? 2 : 0 }}>
+                        { focused ? (
+                            <Image 
+                                source={require('../assets/images/icons/ic_product_blue.png')}
+                                style={styles.icon} />
+                        ) : (
+                            <Image 
+                                source={require('../assets/images/icons/ic_product.png')}
+                                style={styles.icon} />
+                        )}
                     </View>
             }} />
+            */}
             <BlueTab.Screen name='Service' component={Service} options={{
                 headerShown: false,
-                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
-                        <Image 
-                            source={require('../assets/images/icons/ic_service.png')}
-                            style={styles.icon} />
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'dodgerblue' : '', borderTopWidth: focused ? 2 : 0 }}>
+                        { focused ? (
+                            <Image 
+                                source={require('../assets/images/icons/ic_service_blue.png')}
+                                style={styles.icon} />
+                        ) : (
+                            <Image 
+                                source={require('../assets/images/icons/ic_service.png')}
+                                style={styles.icon} />
+                        )}
                     </View>
             }} />
             <BlueTab.Screen name='Support' component={Support} options={{
                 headerShown: false,
-                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
-                        <Image 
-                            source={require('../assets/images/icons/ic_support.png')}
-                            style={styles.icon} />
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'dodgerblue' : '', borderTopWidth: focused ? 2 : 0 }}>
+                        { focused ? (
+                            <Image 
+                                source={require('../assets/images/icons/ic_support_blue.png')}
+                                style={styles.icon} />
+                        ) : (
+                            <Image 
+                                source={require('../assets/images/icons/ic_support.png')}
+                                style={styles.icon} />
+                        )}
                     </View>
             }} />
             <BlueTab.Screen name='Menu' component={Menu} options={{
                 headerShown: false,
-                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
-                        <Image 
-                            source={require('../assets/images/icons/ic_menu.png')}
-                            style={styles.icon} />
+                tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'dodgerblue' : '', borderTopWidth: focused ? 2 : 0 }}>
+                        { focused ? (
+                            <Image 
+                                source={require('../assets/images/icons/ic_menu_blue.png')}
+                                style={styles.icon} />
+                        ) : (
+                            <Image 
+                                source={require('../assets/images/icons/ic_menu.png')}
+                                style={styles.icon} />
+                        )}
                     </View>
             }} />
         </BlueTab.Navigator>
@@ -84,11 +116,11 @@ const Navigation = () => {
                     component={BlueTabNavigator}
                     options={{ headerShown: false }}
                 />
-                <BlueStack.Screen
+                {/*<BlueStack.Screen
                     name='Product'
                     component={Product}
                     options={{ headerShown: false }}
-                />
+                />*/}
                 <BlueStack.Screen
                     name='Service'
                     component={Service}
