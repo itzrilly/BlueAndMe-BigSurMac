@@ -30,7 +30,7 @@ const BlueTabNavigator = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../assets/images/ic_home.png')}
+                            source={require('../assets/images/icons/ic_home.png')}
                             style={styles.icon} />
                     </View>
             }} />
@@ -38,7 +38,7 @@ const BlueTabNavigator = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../assets/images/ic_product.png')}
+                            source={require('../assets/images/icons/ic_product.png')}
                             style={styles.icon} />
                     </View>
             }} />
@@ -46,7 +46,7 @@ const BlueTabNavigator = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../assets/images/ic_service.png')}
+                            source={require('../assets/images/icons/ic_service.png')}
                             style={styles.icon} />
                     </View>
             }} />
@@ -54,7 +54,7 @@ const BlueTabNavigator = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../assets/images/ic_support.png')}
+                            source={require('../assets/images/icons/ic_support.png')}
                             style={styles.icon} />
                     </View>
             }} />
@@ -62,7 +62,7 @@ const BlueTabNavigator = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => <View style={{ padding: 5, borderTopColor: focused ? 'blue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         <Image 
-                            source={require('../assets/images/ic_menu.png')}
+                            source={require('../assets/images/icons/ic_menu.png')}
                             style={styles.icon} />
                     </View>
             }} />

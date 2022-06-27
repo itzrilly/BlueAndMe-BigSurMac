@@ -1,14 +1,25 @@
 import React from 'react'
-import { View, Text, SafeAreaView, Button } from 'react-native'
+import { SafeAreaView, StyleSheet } from 'react-native'
+import Slider from '../components/Slider'
+import Stats from '../components/Stat'
 
-function Home(){
-    
+const Home = () => {
+
+
     return(
-        <SafeAreaView>
-            <Text>Welcome to Blue And Me App!</Text>
+        <SafeAreaView style={styles.container}>
+            <Slider />
+            <Stats />
         </SafeAreaView>
     )
 
 }
 
 export default Home
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#ddd'
+    }
+})

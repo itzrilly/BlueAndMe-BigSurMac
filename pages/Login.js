@@ -35,7 +35,7 @@ const Login = () => {
     return(
         <ScrollView style={styles.scroll_container} showsVerticalScrollIndicator={false}>
            <ImageBackground
-                source={require('../assets/images/blue_woman.png')}
+                source={require('../assets/images/bg/blue_woman.png')}
                 style={styles.img_background}
            >
             <Text style={styles.brand_view_text}>And Me</Text>
@@ -69,7 +69,7 @@ const Login = () => {
                                 maxLength={4}
                             />
                             <Image
-                                source={ require('../assets/images/lg_code.png') }
+                                source={ require('../assets/images/icons/lg_code.png') }
                                 style={styles.img_code}
                             />
                         </View>

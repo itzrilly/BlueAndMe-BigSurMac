@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from 'react'
 import { SafeAreaView, View, Text, Platform, StatusBar, StyleSheet } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
-import Navigation from './Navigation/Navigation'
+import Navigation from './navigation/Navigation'
 
 const App = () => {
 
