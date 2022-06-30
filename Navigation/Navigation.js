@@ -105,7 +105,7 @@ const BlueTabNavigator = () => {
 const Navigation = () => {
     return (
         <NavigationContainer>
-            <BlueStack.Navigator initialRouteName='Login'>
+            <BlueStack.Navigator initialRouteName='Test'>
                 <BlueStack.Screen
                     name='Login'
                     component={Login}

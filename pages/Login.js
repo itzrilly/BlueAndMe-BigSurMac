@@ -27,13 +27,12 @@ const Login = () => {
         }
     }
 
-    const goToHome = () => {
-        console.log('Home Component')
-        // navigation.navigate('Home')
-    }
-
     return(
-        <ScrollView style={styles.scroll_container} showsVerticalScrollIndicator={false}>
+        <ScrollView 
+            style={styles.scroll_container} 
+            scrollEventThrottle={16}
+            showsVerticalScrollIndicator={false}>
+
            <ImageBackground
                 source={require('../assets/images/bg/blue_woman.png')}
                 style={styles.img_background}
