@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, Text, StyleSheet, ScrollView, ImageBackground, Dimensions, TextInput, Image, Button, TouchableOpacity } from 'react-native'
 import CheckBox from '@react-native-community/checkbox'
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native"
 
 const Login = () => {
     const navigation = useNavigation()
