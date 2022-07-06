@@ -1,38 +1,49 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, FlatList, Alert, Button, StyleSheet } from 'react-native'
+import { View, Text, FlatList, Alert, Button, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native'
 import PackageItem from '../components/PackageItem'
-import packages from '../helpers/PackageData'
+//import packages from '../helpers/PackageData'
+import allinone  from '../helpers/Aio'
+import  onlydata from '../helpers/Od'
 //import AsyncStorage from '@react-native-async-storage/async-storage'
-
-//const extractKey = ({ forfait }) => forfait
 
 const Service = () => {
 
     const [ data, setData ] = useState([])
-
-    renderItem = () => {
+ 
+    /*renderItem = () => {
         let items = []
 
         packages.map(packs => {
             // Alert.alert('Mes forfaits', JSON.stringify(packs))
             items = packs.infoPackage.map(ipack => {
-                //Alert.alert('Mes forfaits', JSON.stringify(ipack))
-                //items = ipack.tabs.map(forfait => {
-                    // Alert.alert('Mes forfaits', JSON.stringify(forfait))
-                    /*return (
-                        <View key={forfait.id} >
-                            <Text>{forfait.title}</Text>
-                        </View>
-                    )*/
-                    return ipack
-                //})
+                return ipack
             })
             setData(items)
         })
+    }*/
 
-        /*return (
-            <View>{items}</View>
-        )*/
+    const renderItem = () => {
+        let items0 = []
+
+        allinone.map(packs => {
+            // Alert.alert('Mes forfaits', JSON.stringify(packs))
+            items0 = packs.infoPackage.map(ipack => {
+                return ipack
+            })
+            setData(items0)
+        })
+    }
+
+    const re_renderItem = () => {
+        let items1 = []
+
+        onlydata.map(packs => {
+            // Alert.alert('Mes forfaits', JSON.stringify(packs))
+            items1 = packs.infoPackage.map(ipack => {
+                return ipack
+            })
+            setData(items1)
+        })
     }
     
     useEffect(() => {
@@ -43,12 +54,34 @@ const Service = () => {
         
     return(
         <View style={styles.container}>
+
+            {/*<View style={styles.title_view}>
+                <Text style={styles.title_text}>Choisisez le type de forfait que vous souhaitez activer</Text>
+            </View> */}
+
             <View style={styles.title_view}>
                 <Text style={styles.title_text}>TOUS NOS OFFRES BLUETIFUL</Text>
             </View>
+
+            <View style={styles.top_tabs}>
+                <TouchableOpacity
+                    onPress={renderItem}
+                    style={{ flex: 1, height: 50, justifyContent: 'center' }}
+                >
+                    <Text style={styles.top_tab_text}>Forfait tout-en-un</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={re_renderItem}
+                    style={{ flex: 1, height: 50, justifyContent: 'center' }}
+                >
+                    <Text style={styles.top_tab_text}>Internet uniquement</Text>
+                </TouchableOpacity>
+            </View>
+
             <View style={styles.flatlist_view}>
                 <FlatList
                     data={data}
+                    extraData={data}
                     initialNumToRender={4}
                     //renderItem={this.renderItem}
                     renderItem={({item}) => <PackageItem
@@ -94,6 +127,24 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#ddd',
     },
+    top_tabs: {
+        flexDirection: 'row',
+        backgroundColor: 'darkblue'
+    },
+    tab_1: {
+        
+    },
+    tab_2: {
+        flex: 1,
+        height: 50,
+        justifyContent: 'center'
+    },
+    top_tab_text: {
+        textAlign: 'center',
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 15,
+        color: '#fff'
+    },
     title_view: {
         backgroundColor: '#0d41e1', 
         height: 90,
@@ -103,10 +154,11 @@ const styles = StyleSheet.create({
     title_text: {
         fontFamily: 'Montserrat-Bold',
         color: '#fff',
-        fontSize: 20
+        fontSize: 20,
+        textAlign: 'center'
     },
     flatlist_view: {
-        paddingBottom: 190
+        paddingBottom: 280
     },
     flatlist: {
     }
