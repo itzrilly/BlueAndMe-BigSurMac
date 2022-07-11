@@ -3,7 +3,7 @@ import { View, Text, FlatList, Alert, Button, StyleSheet, TouchableOpacity, Imag
 import PackageItem from '../components/PackageItem'
 //import packages from '../helpers/PackageData'
 import allinone  from '../helpers/Aio'
-import  onlydata from '../helpers/Od'
+import onlydata from '../helpers/Od'
 //import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Service = () => {
@@ -66,13 +66,13 @@ const Service = () => {
             <View style={styles.top_tabs}>
                 <TouchableOpacity
                     onPress={renderItem}
-                    style={{ flex: 1, height: 50, justifyContent: 'center' }}
+                    style={styles.tab_btn}
                 >
                     <Text style={styles.top_tab_text}>Forfait tout-en-un</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={re_renderItem}
-                    style={{ flex: 1, height: 50, justifyContent: 'center' }}
+                    style={styles.tab_btn}
                 >
                     <Text style={styles.top_tab_text}>Internet uniquement</Text>
                 </TouchableOpacity>
@@ -161,5 +161,10 @@ const styles = StyleSheet.create({
         paddingBottom: 280
     },
     flatlist: {
+    },
+    tab_btn: {
+        flex: 1, 
+        height: 50, 
+        justifyContent: 'center'
     }
 })

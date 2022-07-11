@@ -16,7 +16,7 @@ const CustomDrawer = (props) => {
                     style={styles.img_bg} >
                     <Image 
                         source={require('../assets/images/icons/ic_user_ios_gray.png')} 
-                        style={styles.icon} />
+                        style={styles.icon_user} />
                     <Text style={styles.username}>Itachi Uchiha</Text>
                     <Text style={styles.phone}>620 00 00 00</Text>
                 </ImageBackground>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     img_bg: {
         padding: 20
     },
-    icon: {
+    icon_user: {
         height: 80,
         width: 80,
         borderRadius: 40,
@@ -70,10 +70,11 @@ const styles = StyleSheet.create({
     bt_container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 10
+        paddingTop: 7
     },
     btl_container: {
-        padding: 20,
+        padding: 5,
+        paddingLeft: 20,
         borderTopWidth: 1,
         borderTopColor: '#ccc',
     },

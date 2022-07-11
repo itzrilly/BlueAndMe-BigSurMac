@@ -1,17 +1,17 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, Dimensions, Button, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, Dimensions, Button, TouchableOpacity, ScrollView } from 'react-native'
 
 const Support = () => {
     
     return(
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.title_view}>
                 <Text style={styles.title_text}>Aide</Text>
             </View>
 
             <View style={styles.img_container}>
                 <Image
-                    source={ require('../assets/images/img/blue_user.jpeg') }
+                    source={ require('../assets/images/img/blue_user.png') }
                     style={styles.image_user}
                 />
             </View>
@@ -76,7 +76,7 @@ const Support = () => {
                 </View>
             </TouchableOpacity>
 
-        </View>
+        </ScrollView>
     )
 
 }
@@ -86,10 +86,11 @@ export default Support
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#ddd'
     },
     title_view: {
         backgroundColor: '#0d41e1', 
-        height: 90,
+        height: 60,
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -103,13 +104,13 @@ const styles = StyleSheet.create({
         marginTop: 0
     },
     image_user: {
-        width: Dimensions.get('window').width
+        width: Dimensions.get('window').width,
+        height: 300
     },
     item_container: {
         flex: 1,
         flexDirection: 'row',
-        borderColor: 'lightgray',
-        borderWidth: 2,
+        backgroundColor: '#fff',
         margin: 11,
         padding: 10,
         borderRadius: 5,
