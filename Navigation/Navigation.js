@@ -152,7 +152,7 @@ const BlueDrawerNavigator = () => {
                 }
             }}
         >
-            <BlueDrawer.Screen name="Home" component={BlueTabNavigator} 
+            <BlueDrawer.Screen name="Accueil" component={BlueTabNavigator} 
                 options={{
                     drawerIcon: ({ focused }) => 
                     <View>

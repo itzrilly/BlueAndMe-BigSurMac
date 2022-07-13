@@ -9,6 +9,7 @@ import onlydata from '../helpers/Od'
 const Service = () => {
 
     const [ data, setData ] = useState([])
+    const [ press, setPress ] = useState('active')
  
     /*renderItem = () => {
         let items = []
@@ -31,6 +32,7 @@ const Service = () => {
                 return ipack
             })
             setData(items0)
+            setPress('inactive')
         })
     }
 
@@ -43,6 +45,7 @@ const Service = () => {
                 return ipack
             })
             setData(items1)
+            setPress('active')
         })
     }
     
@@ -63,16 +66,18 @@ const Service = () => {
                 <Text style={styles.title_text}>TOUS NOS OFFRES BLUETIFUL</Text>
             </View>
 
-            <View style={styles.top_tabs}>
+            <View 
+                style={styles.top_tabs}
+            >
                 <TouchableOpacity
                     onPress={renderItem}
-                    style={styles.tab_btn}
+                    style={[{backgroundColor: press === 'active' ? '#0d41e1' : 'darkblue', borderTopRightRadius: press === 'active' ? 0 : 50, borderBottomRightRadius: press === 'active' ? 0 : 50}, styles.tab_btn]}
                 >
                     <Text style={styles.top_tab_text}>Forfait tout-en-un</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={re_renderItem}
-                    style={styles.tab_btn}
+                    style={[{backgroundColor: press === 'active' ? 'darkblue' : '#0d41e1', borderTopLeftRadius: press === 'active' ? 50 : 0, borderBottomLeftRadius: press === 'active' ? 50 : 0}, styles.tab_btn]}
                 >
                     <Text style={styles.top_tab_text}>Internet uniquement</Text>
                 </TouchableOpacity>
@@ -129,15 +134,15 @@ const styles = StyleSheet.create({
     },
     top_tabs: {
         flexDirection: 'row',
-        backgroundColor: 'darkblue'
+        backgroundColor: '#0d41e1',
+        borderTopWidth: 1,
+        borderTopColor: 'white',
+        //borderBottomWidth: 1,
+        //borderBottomColor: 'dodgerblue'
     },
     tab_1: {
-        
     },
     tab_2: {
-        flex: 1,
-        height: 50,
-        justifyContent: 'center'
     },
     top_tab_text: {
         textAlign: 'center',
