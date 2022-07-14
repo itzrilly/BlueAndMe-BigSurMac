@@ -11,11 +11,13 @@ import Option from '../pages/Option'
 import Support from '../pages/Support'
 import Menu from '../pages/Menu'
 import Service from '../pages/Service'
+import InfoUser from '../pages/InfoUser'
 import CustomDrawer from '../components/CustomDrawer'
 
 const BlueStack = createNativeStackNavigator()
 const BlueTab = createBottomTabNavigator()
 const BlueDrawer = createDrawerNavigator()
+const BlueStackHome = createNativeStackNavigator()
 const BlueStackOption = createNativeStackNavigator()
 
 const OptionTabNavigator = () => {
@@ -25,17 +27,38 @@ const OptionTabNavigator = () => {
                 tabBarShowLabel: false
             }}
         >
-            <BlueStack.Screen
-                    name='Option'
-                    component={Option}
-                    options={{ headerShown: false }}
-                />
-                <BlueStack.Screen
-                    name='Service'
-                    component={Service}
-                    options={{ headerShown: true }}
-                />
+            <BlueStackOption.Screen
+                name='Option'
+                component={Option}
+                options={{ headerShown: false }}
+            />
+            <BlueStackOption.Screen
+                name='Service'
+                component={Service}
+                options={{ headerShown: true, headerTitle: '' }}
+            />
         </BlueStackOption.Navigator>
+    )
+}
+
+const BlueStackHomeNavigator = () => {
+    return (
+        <BlueStackHome.Navigator
+            screenOptions={{
+                tabBarShowLabel: false
+            }}
+        >
+            <BlueStackHome.Screen
+                name='Home'
+                component={Home}
+                options={{ headerShown: false }}
+            />
+            <BlueStackHome.Screen
+                name='InfoUser'
+                component={InfoUser}
+                options={{ headerShown: true, headerTitle: "Infos sur l'abonné" }}
+            />
+        </BlueStackHome.Navigator>
     )
 }
 
@@ -43,18 +66,19 @@ const BlueTabNavigator = () => {
     const navigation = useNavigation()
     
     return (
-        <BlueTab.Navigator screenOptions={ { 
+        <BlueTab.Navigator initialRouteName='Home' screenOptions={ { 
             tabBarStyle:{
                 shadowColor: 'rgba(0,0.0,0,1)',
                 showLabel: { width: 0, height: 0 },
                 shadowOpacity: 0.1,
                 shadowRadius: 30,
                 elevation: 10,
-                backgroundColor: '#fff'
+                backgroundColor: '#fff',
+                position: 'absolute'
             },
             tabBarShowLabel: false
         }}>
-            <BlueTab.Screen name='Accueil' component={Home} options = {{
+            <BlueTab.Screen name='Accueil' component={BlueStackHomeNavigator} options = {{
                 headerShown: false,
                 tabBarIcon: ({ focused }) => <View style={{ alignItems: 'center', width: '100%', height: '100%', padding: 5, borderTopColor: focused ? 'dodgerblue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         { focused ? (
@@ -143,17 +167,17 @@ const BlueDrawerNavigator = () => {
             }
             screenOptions={{
                 headerShown: false,
-                drawerActiveBackgroundColor: '#0d41e1',
+                /*drawerActiveBackgroundColor: '#0d41e1',
                 drawerActiveTintColor: '#fff',
                 drawerLabelStyle: {
                     marginLeft: -25,
                     fontFamily: 'Montserrat-Regular',
                     fontSize: 15
-                }
+                }*/
             }}
         >
-            <BlueDrawer.Screen name="Accueil" component={BlueTabNavigator} 
-                options={{
+            <BlueDrawer.Screen name="Accueil" component={BlueTabNavigator} />
+                {/*options={{
                     drawerIcon: ({ focused }) => 
                     <View>
                         { focused ? (
@@ -167,11 +191,13 @@ const BlueDrawerNavigator = () => {
                         )}
                     </View>
                 }}
-            />
-            <BlueDrawer.Screen name="Mes informations" component={Service} 
+            />*
+            <BlueDrawer.Screen name="Mes informations" component={InfoUser}
+                style={{ backgroundColor: 'yellow' }}
                 options={{
+                    headerShown: false,
                     drawerIcon: ({ focused }) => 
-                    <View>
+                    <View> 
                         { focused ? (
                             <Image 
                                 source={require('../assets/images/icons/ic_user_ios_white.png')}
@@ -249,7 +275,7 @@ const BlueDrawerNavigator = () => {
                 }}
             />
             <BlueDrawer.Screen name="Partager" component={Menu} 
-                options={{
+                /*options={{
                     drawerIcon: ({ focused }) => 
                     <View>
                         { focused ? (
@@ -265,7 +291,7 @@ const BlueDrawerNavigator = () => {
                 }}
             />
              <BlueDrawer.Screen name="Noter Blue And Me" component={Menu} 
-                options={{
+                /*options={{
                     drawerIcon: ({ focused }) => 
                     <View>
                         { focused ? (
@@ -281,7 +307,7 @@ const BlueDrawerNavigator = () => {
                 }}
             />
              <BlueDrawer.Screen name="Tutoriel" component={Menu} 
-                options={{
+                /*options={{
                     drawerIcon: ({ focused }) => 
                     <View>
                         { focused ? (
@@ -297,7 +323,7 @@ const BlueDrawerNavigator = () => {
                 }}
             />
              <BlueDrawer.Screen name="A propos nous" component={Menu} 
-                options={{
+                    options={{
                     drawerIcon: ({ focused }) => 
                     <View>
                         { focused ? (
@@ -312,8 +338,8 @@ const BlueDrawerNavigator = () => {
                     </View>
                 }}
             />
-             <BlueDrawer.Screen name="Langue" component={Menu} 
-                options={{
+             <BlueDrawer.Screen name="Langue" component={Menu} />
+                    options={{
                     drawerIcon: ({ focused }) => 
                     <View>
                         { focused ? (
@@ -327,7 +353,7 @@ const BlueDrawerNavigator = () => {
                         )}
                     </View>
                 }}
-            />
+            />*/}
         </BlueDrawer.Navigator>
     )
 }
