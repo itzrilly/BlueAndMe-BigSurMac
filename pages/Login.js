@@ -186,7 +186,8 @@ const styles = StyleSheet.create({
         fontSize: 12
     },
     lg_btn_container: {
-        
+        marginTop: 5,
+        backgroundColor: 'transparent'
     },
     btn_login: {
         backgroundColor: '#0d41e1',
@@ -201,7 +202,8 @@ const styles = StyleSheet.create({
     },
     text_lg_btn: {
         color: '#fff',
-        fontFamily: 'Montserrat-SemiBold'
+        fontFamily: 'Montserrat-SemiBold',
+        fontSize: 20
     }
 })
 

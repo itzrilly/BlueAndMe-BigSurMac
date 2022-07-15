@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native'
 import infoData from '../helpers/InfosUser'
 //import Header from '../components/Header'
 
 const InfoUser = () => {
+
+    const [ dataUser, setDataUser ] = useState([])
 
     userData = () => {
         let item = []
@@ -12,7 +14,7 @@ const InfoUser = () => {
             item = dUser.user.map(myUser => {
                 //Alert.alert('MyUser', JSON.stringify(myUser.firstname))
                 return (
-                    <View>
+                    <View key={myUser.id}>
                         <View style={styles.img_container}>
                             <Image source={{ uri: myUser.pic_url }} style={styles.picture} />
                         </View>
@@ -30,21 +32,28 @@ const InfoUser = () => {
                     </View>
                 )
             })
+            setDataUser(item)
         })
 
-        return(
+        /*return(
             <View>
-                <Text>{item}</Text>
+                <Text>{dataUser}</Text>
             </View>
-        )
+        )*/
     }
+
+    useEffect(() => {
+        userData()
+    }, [])
 
     return (
         <View style={styles.container}>
             {/*<SafeAreaView>
                 <Header text='Infos abonné' goBack = {() => navigation.goBack()} />
             </SafeAreaView> */}
-            {userData()}
+            {
+                dataUser
+            }
         </View>
     )
 }

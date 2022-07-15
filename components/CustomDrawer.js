@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Share } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
-// import { useNavigation } from '@react-navigation/native'
+//import { useNavigation } from '@react-navigation/native'
 
 const CustomDrawer = (props) => {
     const { navigation } = props
@@ -44,15 +44,15 @@ const CustomDrawer = (props) => {
                 <View style={styles.bt_container}>
                     {/*<DrawerItemList {...props} />*/}
 
-                    <TouchableOpacity 
-                        onPress={() => navigation.closeDrawer() }
+                    {/*<TouchableOpacity 
+                        onPress={ () => {} }
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                             <Image source={require('../assets/images/icons/ic_home.png')} style={styles.icon} />
                             <Text style={styles.text_btn}>Accueil</Text>
                         </View>
-                    </TouchableOpacity>
-
+                    </TouchableOpacity>*/}
+                    
                     <TouchableOpacity 
                         onPress={() => moveToScreen('InfoUser')}
                         style={styles.btn}>
@@ -81,7 +81,7 @@ const CustomDrawer = (props) => {
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={() => moveToScreen('Password')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                             <Image source={require('../assets/images/icons/ic_password.png')} style={styles.icon} />
@@ -224,7 +224,7 @@ const CustomDrawer = (props) => {
 
             <View style={styles.btl_container}>
                 <TouchableOpacity
-                    onPress={() => {}}
+                    onPress={ () => moveToScreen('Login') }
                     style={styles.btn}
                 >
                     <View style={styles.inner_btn_view}>

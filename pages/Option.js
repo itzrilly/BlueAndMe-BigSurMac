@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     container: {
        flex: 1,
        backgroundColor: '#ddd',
+       marginBottom: 50
     },
     title_view: {
         backgroundColor: '#0d41e1', 

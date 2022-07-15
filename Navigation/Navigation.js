@@ -12,6 +12,7 @@ import Support from '../pages/Support'
 import Menu from '../pages/Menu'
 import Service from '../pages/Service'
 import InfoUser from '../pages/InfoUser'
+import Password from '../pages/Password'
 import CustomDrawer from '../components/CustomDrawer'
 
 const BlueStack = createNativeStackNavigator()
@@ -57,6 +58,11 @@ const BlueStackHomeNavigator = () => {
                 name='InfoUser'
                 component={InfoUser}
                 options={{ headerShown: true, headerTitle: "Infos sur l'abonné" }}
+            />
+            <BlueStackHome.Screen
+                name='Password'
+                component={Password}
+                options={{ headerShown: true, headerTitle: "Mot de passe" }}
             />
         </BlueStackHome.Navigator>
     )
