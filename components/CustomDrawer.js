@@ -1,10 +1,25 @@
-import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Share } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Share, Linking, Platform } from 'react-native'
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
-//import { useNavigation } from '@react-navigation/native'
+import * as StoreReview from 'react-native-store-review'
+import { StatusBar } from 'expo-status-bar'
+import { useSelector, useDispatch } from 'react-redux'
+import { switchMode } from '../reduxStore/Actions'
 
 const CustomDrawer = (props) => {
     const { navigation } = props
+
+    const theme = useSelector(state => state.theme)
+    const dispatch = useDispatch()
+    const [mode, setMode] = useState(theme.mode)
+
+    const handleThemeChange = () => { 
+        dispatch(switchMode(theme.mode === 'light' ? 'dark' : 'light'));
+    }
+
+    useEffect(() => { 
+        setMode(theme.mode);
+    }, [theme]);
 
     const moveToScreen = (screen) => {
         navigation.navigate(screen)
@@ -13,7 +28,28 @@ const CustomDrawer = (props) => {
     const shareTheApp = () => {
         Share.share({ title: 'Blue And Me', message: 'Télécharges l\'application Blue And Me et bénéficie de 1Go gratuit' })
     }
+    
+    const rateTheApp = () => {
 
+        const IOS_APP_ID = ''
+        const ANDROID_APP_ID = ''
+
+        const APP_STORE_LINK = `itms-apps://apps.apple.com/app/id${IOS_APP_ID}?action=write-review`
+        const PLAY_STORE_LINK = `market://details?id=${ANDROID_APP_ID}`
+
+        const STORE_LINK = Platform.select({
+            ios: APP_STORE_LINK,
+            android: PLAY_STORE_LINK,
+        })
+
+        Linking.openURL(STORE_LINK)
+
+        if (StoreReview.isAvailable) {
+            StoreReview.requestReview()
+        }
+
+    }
+    
     return (
         <View style={styles.container}>
 
@@ -22,6 +58,7 @@ const CustomDrawer = (props) => {
                 contentContainerStyle={{ 
                     backgroundColor: '#0d41e1'
                 }}
+                style={styles.drawerContainerStyle}
             >
                 <ImageBackground 
                     source={require('../assets/images/img/img_bg.png')} 
@@ -41,7 +78,7 @@ const CustomDrawer = (props) => {
                     </Text>*/}
                 </ImageBackground>
                 
-                <View style={styles.bt_container}>
+                <View style={mode == 'light' ? styles.bt_container_light : styles.bt_container_dark}>
                     {/*<DrawerItemList {...props} />*/}
 
                     {/*<TouchableOpacity 
@@ -57,26 +94,26 @@ const CustomDrawer = (props) => {
                         onPress={() => moveToScreen('InfoUser')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_user_ios_black.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Mes informations</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_user_ios_black.png') : require('../assets/images/icons/ic_user_ios_gray.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Mes informations</Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={() => moveToScreen('')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_clock.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Notifications</Text>
+                            <Image source={ mode == 'light' ? require('../assets/images/icons/ic_clock.png') : require('../assets/images/icons/ic_clock_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Notifications</Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={() => moveToScreen('Plan') }
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_plan.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Plan tarifaire</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_plan.png') : require('../assets/images/icons/ic_plan_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Plan tarifaire</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -84,17 +121,17 @@ const CustomDrawer = (props) => {
                         onPress={() => moveToScreen('Password')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_password.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Mot de passe</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_password.png') : require('../assets/images/icons/ic_password_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Mot de passe</Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={() => moveToScreen('')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_heraut.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Dernières offres</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_heraut.png') : require('../assets/images/icons/ic_heraut_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Dernières offres</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -102,44 +139,44 @@ const CustomDrawer = (props) => {
                         onPress={shareTheApp}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_share.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Partager</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_share.png') : require('../assets/images/icons/ic_share_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Partager</Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={rateTheApp}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_rank.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Noter Blue And Me</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_rank.png') : require('../assets/images/icons/ic_rank_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Noter Blue And Me</Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={() => moveToScreen('')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_tutorial.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Tutoriel</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_tutorial.png') : require('../assets/images/icons/ic_tutorial_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Tutoriel</Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={() => moveToScreen('AboutUs')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_aboutus.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>A propos nous</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_aboutus.png') : require('../assets/images/icons/ic_aboutus_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>A propos de nous</Text>
                         </View>
                     </TouchableOpacity>
 
                     <TouchableOpacity 
-                        onPress={() => moveToScreen('InfoUser')}
+                        onPress={() => moveToScreen('Language')}
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
-                            <Image source={require('../assets/images/icons/ic_language.png')} style={styles.icon} />
-                            <Text style={styles.text_btn}>Langue</Text>
+                        <Image source={ mode == 'light' ? require('../assets/images/icons/ic_language.png') : require('../assets/images/icons/ic_language_white.png') } style={styles.icon} />
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Langue</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -222,20 +259,35 @@ const CustomDrawer = (props) => {
                 </View>
             </DrawerContentScrollView>
 
-            <View style={styles.btl_container}>
+            <View style={mode == 'light' ? styles.btl_container_light : styles.btl_container_dark}>
+                <TouchableOpacity
+                    onPress={handleThemeChange}
+                    style={styles.btn}
+                >
+                    <View style={styles.inner_btn_view}>
+                        <Image
+                            source={ mode == 'light' ? require('../assets/images/icons/ic_moon.png') : require('../assets/images/icons/ic_moon_light.png') }
+                            style={styles.icon} 
+                        />
+                        <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Mode Sombre</Text>
+                    </View>
+                </TouchableOpacity>
+
                 <TouchableOpacity
                     onPress={ () => moveToScreen('Login') }
                     style={styles.btn}
                 >
                     <View style={styles.inner_btn_view}>
                         <Image
-                            source={require('../assets/images/icons/ic_signout.png')}
+                            source={ mode == 'light' ? require('../assets/images/icons/ic_signout.png') : require('../assets/images/icons/ic_signout_light.png') }
                             style={styles.icon} 
                         />
-                        <Text style={styles.text_btn}>Se deconnecter</Text>
+                        <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Se déconnecter</Text>
                     </View>
                 </TouchableOpacity>
             </View>
+
+            <StatusBar style="auto" />
 
         </View>
     )
@@ -246,6 +298,9 @@ export default CustomDrawer
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    drawerContainerStyle:{
+        //flex: 1
     },
     img_bg: {
         flexDirection: 'row',
@@ -275,9 +330,15 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: 'Montserrat-SemiBold'
     },
-    bt_container: {
+    bt_container_light: {
         flex: 1,
         backgroundColor: '#fff',
+        paddingTop: 5,
+        paddingLeft: 20,
+    },
+    bt_container_dark: {
+        flex: 1,
+        backgroundColor: '#14213d',
         paddingTop: 5,
         paddingLeft: 20,
     },
@@ -288,11 +349,20 @@ const styles = StyleSheet.create({
     },
     drawer_text: {
     },*/
-    btl_container: {
-        padding: 5,
+    btl_container_light: {
+        //flex: 1,
+        padding: 10,
         paddingLeft: 20,
         borderTopWidth: 1,
         borderTopColor: '#ccc',
+    },
+    btl_container_dark: {
+        //flex: 1,
+        padding: 10,
+        paddingLeft: 20,
+        borderTopWidth: 1,
+        borderTopColor: '#ccc',
+        backgroundColor: '#14213d'
     },
     btn: {
         paddingVertical: 12
@@ -301,10 +371,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center'
     },
-    text_btn: {
+    text_btn_light: {
         fontSize: 15,
         fontFamily: 'Montserrat-Regular',
         marginLeft: 15
+    },
+    text_btn_dark: {
+        fontSize: 15,
+        fontFamily: 'Montserrat-Regular',
+        marginLeft: 15,
+        color: '#fff'
     },
     icon: {
         width: 23,

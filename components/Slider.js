@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, Dimensions, StyleSheet, ScrollView, Image } f
 
 
 const images = [
+    'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/img/Slide06.jpg',
     'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_forfait_spot.jpg',
     'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_forfait_cool.jpg',
     'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_forfait_fap.jpg',
@@ -11,7 +12,9 @@ const images = [
     'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_forfait_swim.jpg',
     'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_pack_single.jpg',
     'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_pack_friendly.jpg',
-    'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_pack_business_plus.jpg'
+    'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/sliders/slider_b_pack_business_plus.jpg',
+    'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/img/blue_user.png',
+    'https://raw.githubusercontent.com/itzrilly/BlueAndMe/main/assets/images/img/blue_girls.png'
 ]
 
 const WIDTH = Dimensions.get('window').width

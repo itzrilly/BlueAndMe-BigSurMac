@@ -13,34 +13,19 @@ import Menu from '../pages/Menu'
 import Service from '../pages/Service'
 import InfoUser from '../pages/InfoUser'
 import Password from '../pages/Password'
+import AboutUs from '../pages/AboutUs'
+import LegalInfos from '../pages/LegalInfos'
+import Plan from '../pages/Plan'
+import ChoicePlan from '../pages/ChoicePlan'
+import Language from '../pages/Language'
 import CustomDrawer from '../components/CustomDrawer'
+import { useSelector } from 'react-redux'
 
 const BlueStack = createNativeStackNavigator()
 const BlueTab = createBottomTabNavigator()
 const BlueDrawer = createDrawerNavigator()
 const BlueStackHome = createNativeStackNavigator()
 const BlueStackOption = createNativeStackNavigator()
-
-const OptionTabNavigator = () => {
-    return (
-        <BlueStackOption.Navigator
-            screenOptions={{
-                tabBarShowLabel: false
-            }}
-        >
-            <BlueStackOption.Screen
-                name='Option'
-                component={Option}
-                options={{ headerShown: false }}
-            />
-            <BlueStackOption.Screen
-                name='Service'
-                component={Service}
-                options={{ headerShown: true, headerTitle: '' }}
-            />
-        </BlueStackOption.Navigator>
-    )
-}
 
 const BlueStackHomeNavigator = () => {
     return (
@@ -68,18 +53,50 @@ const BlueStackHomeNavigator = () => {
     )
 }
 
-const BlueTabNavigator = () => {
+const BlueStackOptionNavigator = () => {
+    return (
+        <BlueStackOption.Navigator
+            screenOptions={{
+                tabBarShowLabel: false
+            }}
+        >
+            <BlueStackOption.Screen
+                name='Option'
+                component={Option}
+                options={{ headerShown: false }}
+            />
+            <BlueStackOption.Screen
+                name='Service'
+                component={Service}
+                options={{ headerShown: true, headerTitle: '' }}
+            />
+            {/*<BlueStackOption.Screen
+                name='Plan'
+                component={Plan}
+                options={{ headerShown: true, headerTitle: '' }}
+            />
+            <BlueStackOption.Screen
+                name='ChoicePlan'
+                component={ChoicePlan}
+                options={{ headerShown: true, headerTitle: '' }}
+            />*/}
+        </BlueStackOption.Navigator>
+    )
+}
+
+const BlueTabNavigator = (props) => {
     const navigation = useNavigation()
+    const theme = useSelector(state => state.theme)
     
     return (
-        <BlueTab.Navigator initialRouteName='Home' screenOptions={ { 
+        <BlueTab.Navigator initialRouteName='Accueil' screenOptions={ { 
             tabBarStyle:{
                 shadowColor: 'rgba(0,0.0,0,1)',
                 showLabel: { width: 0, height: 0 },
                 shadowOpacity: 0.1,
                 shadowRadius: 30,
                 elevation: 10,
-                backgroundColor: '#fff',
+                backgroundColor: theme.mode == 'light' ? '#fff' : '#14213d',
                 position: 'absolute'
             },
             tabBarShowLabel: false
@@ -92,11 +109,16 @@ const BlueTabNavigator = () => {
                                 source={require('../assets/images/icons/ic_home_blue.png')}
                                 style={styles.icon} />
                         ) : (
-                            <Image 
+                            theme.mode == 'light' ?
+                            (<Image 
                                 source={require('../assets/images/icons/ic_home.png')}
-                                style={styles.icon} />
+                                style={styles.icon} />)
+                            :
+                            (<Image 
+                                source={require('../assets/images/icons/ic_home_light.png')}
+                                style={styles.icon} />)
                         )}
-                        <Text style={styles.title}>Accueil</Text>
+                        <Text style={ theme.mode == 'light' ? styles.title_light : styles.title_dark }>Accueil</Text>
                     </View>
             }} />
             {/*
@@ -116,7 +138,7 @@ const BlueTabNavigator = () => {
                     </View>
             }} />
             */}
-            <BlueTab.Screen name='Service' component={OptionTabNavigator} options={{
+            <BlueTab.Screen name='Service' component={BlueStackOptionNavigator} options={{
                 headerShown: false,
                 tabBarIcon: ({ focused }) => <View style={{ alignItems: 'center', width: '100%', height: '100%', padding: 5, borderTopColor: focused ? 'dodgerblue' : '', borderTopWidth: focused ? 2 : 0 }}>
                         { focused ? (
@@ -124,11 +146,16 @@ const BlueTabNavigator = () => {
                                 source={require('../assets/images/icons/ic_service_blue.png')}
                                 style={styles.icon} />
                         ) : (
-                            <Image 
+                            theme.mode == 'light' ?
+                            (<Image 
                                 source={require('../assets/images/icons/ic_service.png')}
-                                style={styles.icon} />
+                                style={styles.icon} />)
+                            :
+                            (<Image 
+                                source={require('../assets/images/icons/ic_service_light.png')}
+                                style={styles.icon} />)
                         )}
-                        <Text style={styles.title}>Service</Text>
+                        <Text style={ theme.mode == 'light' ? styles.title_light : styles.title_dark }>Service</Text>
                     </View>
             }} />
             <BlueTab.Screen name='Support' component={Support} options={{
@@ -139,11 +166,16 @@ const BlueTabNavigator = () => {
                                 source={require('../assets/images/icons/ic_support_blue.png')}
                                 style={styles.icon} />
                         ) : (
-                            <Image 
+                            theme.mode == 'light' ?
+                            (<Image 
                                 source={require('../assets/images/icons/ic_support.png')}
-                                style={styles.icon} />
+                                style={styles.icon} />)
+                            :
+                            (<Image 
+                                source={require('../assets/images/icons/ic_support_light.png')}
+                                style={styles.icon} />)
                         )}
-                        <Text style={styles.title}>Support</Text>
+                        <Text style={ theme.mode == 'light' ? styles.title_light : styles.title_dark }>Support</Text>
                     </View>
             }} />
             <BlueTab.Screen name='Menu' component={Home} options={{
@@ -154,11 +186,16 @@ const BlueTabNavigator = () => {
                                     source={require('../assets/images/icons/ic_menu_blue.png')}
                                     style={styles.icon} />
                             ) : (
-                                <Image 
+                                theme.mode == 'light' ?
+                                (<Image 
                                     source={require('../assets/images/icons/ic_menu.png')}
-                                    style={styles.icon} />
+                                    style={styles.icon} />)
+                                :
+                                (<Image 
+                                    source={require('../assets/images/icons/ic_menu_light.png')}
+                                    style={styles.icon} />)
                             )}
-                            <Text style={styles.title}>Menu</Text>
+                            <Text style={ theme.mode == 'light' ? styles.title_light : styles.title_dark }>Menu</Text>
                     </TouchableOpacity>
             }} />
         </BlueTab.Navigator>
@@ -393,6 +430,31 @@ const Navigation = () => {
                     component={Menu}
                     options={{ headerShown: false }}
                 />
+                <BlueStack.Screen
+                    name='AboutUs'
+                    component={AboutUs}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
+                <BlueStack.Screen
+                    name='LegalInfos'
+                    component={LegalInfos}
+                    options={{ headerShown: true, headerTitle: 'Informations légales' }}
+                />
+                <BlueStack.Screen
+                    name='Plan'
+                    component={Plan}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
+                <BlueStack.Screen
+                    name='ChoicePlan'
+                    component={ChoicePlan}
+                    options={{ headerShown: true, headerTitle: '' }}
+                />
+                <BlueStack.Screen
+                    name='Language'
+                    component={Language}
+                    options={{ headerShown: true, headerTitle: 'Choix de la langue' }}
+                />
             </BlueStack.Navigator>
         </NavigationContainer>
     )
@@ -405,8 +467,13 @@ const styles = StyleSheet.create({
       width: 23,
       height: 23
     },
-    title: {
+    title_light: {
         fontSize: 10,
         marginTop: 3
+    },
+    title_dark: {
+        fontSize: 10,
+        marginTop: 3,
+        color: '#fff'
     }
 })

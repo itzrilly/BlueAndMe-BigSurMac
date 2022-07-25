@@ -1,4 +1,5 @@
 {
   "name": "BlueAndMe",
-  "displayName": "BlueAndMe"
+  "displayName": "BlueAndMe",
+  "ios": {"userInterfaceStyle": "automatic"}
 }

@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { View, StyleSheet, Text, Image, Alert, FlatList } from 'react-native'
 import statData from '../helpers/StatData'
 import StatItem from './StatItem'
+import { useSelector } from 'react-redux'
 
 const Stats = () => {
 
     const [ info, setInfo ] = useState([])
+    const theme = useSelector(state => state.theme)
 
     const renderItem = () => {
         let items = []
@@ -25,7 +27,7 @@ const Stats = () => {
     }, [])
 
     return (
-        <View style={styles.container}>
+        <View style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
 
             <FlatList
                 data={info}
@@ -51,10 +53,15 @@ const Stats = () => {
 export default Stats
 
 const styles = StyleSheet.create({
-    container: {
+    container_light: {
         flex: 1,
         paddingTop: 7,
         backgroundColor: '#ddd'
+    },
+    container_dark: {
+        flex: 1,
+        paddingTop: 7,
+        backgroundColor: '#14213d'
     },
     stat_item: {
         flex: 1,

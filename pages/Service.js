@@ -5,11 +5,14 @@ import PackageItem from '../components/PackageItem'
 import allinone  from '../helpers/Aio'
 import onlydata from '../helpers/Od'
 //import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StatusBar } from 'expo-status-bar'
+import { useSelector } from 'react-redux'
 
-const Service = () => {
+const Service = ( props ) => {
 
     const [ data, setData ] = useState([])
     const [ press, setPress ] = useState('active')
+    const theme = useSelector(state => state.theme)
  
     /*renderItem = () => {
         let items = []
@@ -56,7 +59,7 @@ const Service = () => {
   
         
     return(
-        <View style={styles.container}>
+        <View style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
 
             {/*<View style={styles.title_view}>
                 <Text style={styles.title_text}>Choisisez le type de forfait que vous souhaitez activer</Text>
@@ -121,6 +124,8 @@ const Service = () => {
                     // keyExtractor={extractKey}
                 />
             </View>
+
+            <StatusBar style="auto" />
         </View>
     )
 
@@ -129,8 +134,11 @@ const Service = () => {
 export default Service
 
 const styles = StyleSheet.create({
-    container: {
+    container_light: {
         backgroundColor: '#ddd',
+    },
+    container_dark: {
+        backgroundColor: '#14213d',
     },
     top_tabs: {
         flexDirection: 'row',
@@ -163,7 +171,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     flatlist_view: {
-        paddingBottom: 280
+        paddingBottom: 330
     },
     flatlist: {
     },

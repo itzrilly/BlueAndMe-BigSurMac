@@ -1,10 +1,12 @@
 import React from 'react'
 import { View, Text, FlatList, Alert, Button, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
+import { useSelector } from 'react-redux'
 
 const Option = ({ navigation }) => {
-   
+    const theme = useSelector(state => state.theme)
+
     return(
-        <ScrollView style={styles.container}>
+        <ScrollView style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
 
             <View style={styles.title_view}>
                 <Text style={styles.title_text}>Blue Services</Text>
@@ -22,91 +24,92 @@ const Option = ({ navigation }) => {
             </View> */}
 
             <View style={styles.item_container}>
+
                 <TouchableOpacity 
                     onPress={ () => navigation.navigate('Service') }
-                    style={styles.item}
+                    style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }
                 >
                     <Image
                         source={ require('../assets/images/icons/ic_forfait.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Souscrire à un forfait Blue</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Souscrire à un forfait Blue</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_gift.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Offrir un forfait Blue à un proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Offrir un forfait Blue à un proche</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item_container}>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_location.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Call Box Blue le plus proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Call Box Blue le plus proche</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_localise_plan.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Agence Blue la plus proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Agence Blue la plus proche</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item_container}>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_payment.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Recharger votre compte</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Recharger votre compte</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_payment_friend_blue.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Recharger le compte d'un proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Recharger le compte d'un proche</Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item_container}>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_preferred_number.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Numéros préférés</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Numéros préférés</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_home_zone.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Home Zone </Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Home Zone </Text>
                 </TouchableOpacity>
             </View>
 
             <View style={styles.item_container}>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_info_call.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Infos dernier appel</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Infos dernier appel</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_blue_new_offers.png') }
                         style={styles.icon}
                     />
-                    <Text style={styles.text}>Découvrir les dernières offres de Blue</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Découvrir les dernières offres de Blue</Text>
                 </TouchableOpacity>
             </View>
 
@@ -118,10 +121,15 @@ const Option = ({ navigation }) => {
 export default Option
 
 const styles = StyleSheet.create({
-    container: {
+    container_light: {
        flex: 1,
        backgroundColor: '#ddd',
        marginBottom: 50
+    },
+    container_dark: {
+        flex: 1,
+        backgroundColor: '#14213d',
+        marginBottom: 50
     },
     title_view: {
         backgroundColor: '#0d41e1', 
@@ -146,7 +154,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center'
     },
-    item: {
+    item_light: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
@@ -155,13 +163,30 @@ const styles = StyleSheet.create({
         padding: 7,
         borderRadius: 10
     },
-    icon:{
+    item_dark: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#14213d',
+        margin: 10,
+        padding: 7,
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 0.2
+    },
+    icon: {
         height: 70,
         width: 70
     },
-    text:{
+    text_light: {
         marginTop: 5,
         fontFamily: 'Montserrat-Bold',
         textAlign: 'center',
+    },
+    text_dark: {
+        marginTop: 5,
+        fontFamily: 'Montserrat-Bold',
+        textAlign: 'center',
+        color: '#fff'
     }
 })

@@ -2,6 +2,10 @@ import React, { Fragment, useEffect } from 'react'
 import { SafeAreaView, Platform, StatusBar, StyleSheet } from 'react-native'
 import SplashScreen from 'react-native-splash-screen'
 import Navigation from './navigation/Navigation'
+import { Provider } from 'react-redux'
+import configureStore from './reduxStore/Store'
+
+const store = configureStore()
 
 const App = () => {
 
@@ -10,12 +14,14 @@ const App = () => {
   }, [])
   
   return (
-    <Fragment>
-      { Platform.OS === 'ios' && <StatusBar barStyle='dark-content' /> }
-      <SafeAreaView style={styles.container}>
-        <Navigation />
-      </SafeAreaView>
-    </Fragment>
+    <Provider store={store}>
+      <Fragment>
+        { Platform.OS === 'ios' && <StatusBar barStyle='dark-content' /> }
+        <SafeAreaView style={styles.container}>
+          <Navigation />
+        </SafeAreaView>
+      </Fragment>
+    </Provider>
   )
 
 }

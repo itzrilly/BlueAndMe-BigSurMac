@@ -1,24 +1,27 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import numeral from 'numeral'
+import { useSelector } from 'react-redux'
 
 const PackageItem = (props) => {
+    const theme = useSelector(state => state.theme)
+
     return (
-        <View style={styles.container}>
+        <View style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
             <View style={styles.item_container}>
-                {props.category ? (<Text style={styles.text_item_title_big}>{props.category}</Text>) : ''}
-                {props.category_less ? (<Text style={styles.text_item_title_less}>{props.category_less}</Text>) : ''}
-                {props.daily ? (<Text style={styles.text_item_title_less}>{props.daily}</Text>) : ''}
-                {props.weekly ? (<Text style={styles.text_item_title_less}>{props.weekly}</Text>) : ''}
-                {props.monthly ? (<Text style={styles.text_item_title_less}>{props.monthly}</Text>) : ''}
-                {props.title ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Plan: </Text><Text style={styles.text_item_package}>{props.title}</Text></View>) : ''}
-                {props.price ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Prix: </Text><Text style={styles.text_item}>{numeral(props.price).format('0,0[.]00')} U</Text></View>) : ''}
-                {props.overview ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Détail: </Text><Text style={styles.text_item}>{props.overview}</Text></View>) : ''}
-                {props.validity ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Validité: </Text><Text style={styles.text_item}>{props.validity}</Text></View>) : ''}
-                {props.gain ? (<View style={styles.view_line}><Text style={styles.sub_tile}>DATA: </Text><Text style={styles.text_item}>{props.gain}</Text></View>) : ''}
+                {props.category ? (<Text style={ theme.mode == 'light' ? styles.text_item_title_big_light : styles.text_item_title_big_dark }>{props.category}</Text>) : ''}
+                {props.category_less ? (<Text style={ theme.mode == 'light' ? styles.text_item_title_less_light : styles.text_item_title_less_dark }>{props.category_less}</Text>) : ''}
+                {props.daily ? (<Text style={ theme.mode == 'light' ? styles.text_item_title_less_light : styles.text_item_title_less_dark }>{props.daily}</Text>) : ''}
+                {props.weekly ? (<Text style={ theme.mode == 'light' ? styles.text_item_title_less_light : styles.text_item_title_less_dark }>{props.weekly}</Text>) : ''}
+                {props.monthly ? (<Text style={ theme.mode == 'light' ? styles.text_item_title_less_light : styles.text_item_title_less_dark }>{props.monthly}</Text>) : ''}
+                {props.title ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Plan: </Text><Text style={styles.text_item_package}>{props.title}</Text></View>) : ''}
+                {props.price ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Prix: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{numeral(props.price).format('0,0[.]00')} U</Text></View>) : ''}
+                {props.overview ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Détail: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.overview}</Text></View>) : ''}
+                {props.validity ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Validité: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.validity}</Text></View>) : ''}
+                {props.gain ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>DATA: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.gain}</Text></View>) : ''}
                 { props.ic_facebook || props.ic_whatsapp || props.ic_twitter || props.ic_telegram || props.ic_instagram || props.ic_youtube || props.ic_netflix ?
                 (<View style={styles.view_line}>
-                        <Text style={styles.sub_tile}>Applis illimités: </Text>
+                        <Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Applis illimités: </Text>
                         <View style={styles.rs_view}>
                             {props.ic_facebook ? (<Image source={{ uri: props.ic_facebook }} style={styles.sm_icon} />) : ''}
                             {props.ic_whatsapp ? (<Image source={{ uri: props.ic_whatsapp }} style={styles.sm_icon} />) : ''}
@@ -30,13 +33,13 @@ const PackageItem = (props) => {
                         </View>
                 </View>) 
                 : '' }
-                {props.all_airtime_network ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Airtime tous réseaux: </Text><Text style={styles.text_item}>{props.all_airtime_network} U</Text></View>) : ''}
-                {props.call_flot ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Appels à des numéros de la flotte mobile: </Text><Text style={styles.text_item}>{props.call_flot}</Text></View>) : ''}
-                {props.sms_flot ? (<View style={styles.view_line}><Text style={styles.sub_tile}>SMS à des numéros de la flotte mobile: </Text><Text style={styles.text_item}>{props.sms_flot}</Text></View>) : ''}
-                {props.all_sms_network ? (<View style={styles.view_line}><Text style={styles.sub_tile}>SMS tous réseaux: </Text><Text style={styles.text_item}>{props.all_sms_network}</Text></View>) : ''}
-                {props.airtime_other_blue ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Airtime autres numéros Blue: </Text><Text style={styles.text_item}>{numeral(props.airtime_other_blue).format('0,0[.]00')} U</Text></View>) : ''}
-                {props.daily_limit ? (<View style={styles.view_line}><Text style={styles.sub_tile}>Limite journalier: </Text><Text style={styles.text_item}>{props.daily_limit}</Text></View>) : ''}
-                {props.download ? (<View style={styles.view_line_last}><Text style={styles.sub_tile}>Téléchargements: </Text><Text style={styles.text_item}>{props.download}</Text></View>) : ''}
+                {props.all_airtime_network ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Airtime tous réseaux: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.all_airtime_network} U</Text></View>) : ''}
+                {props.call_flot ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Appels à des numéros de la flotte mobile: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.call_flot}</Text></View>) : ''}
+                {props.sms_flot ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>SMS à des numéros de la flotte mobile: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.sms_flot}</Text></View>) : ''}
+                {props.all_sms_network ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>SMS tous réseaux: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.all_sms_network}</Text></View>) : ''}
+                {props.airtime_other_blue ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Airtime autres numéros Blue: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{numeral(props.airtime_other_blue).format('0,0[.]00')} U</Text></View>) : ''}
+                {props.daily_limit ? (<View style={styles.view_line}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Limite journalier: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.daily_limit}</Text></View>) : ''}
+                {props.download ? (<View style={styles.view_line_last}><Text style={ theme.mode == 'light' ? styles.sub_title_light : styles.sub_title_dark }>Téléchargements: </Text><Text style={ theme.mode == 'light' ? styles.text_item_light : styles.text_item_dark }>{props.download}</Text></View>) : ''}
             </View>
             { (props.category || props.category_less || props.daily || props.weekly || props.monthly) ?  ''  :
             ( 
@@ -56,21 +59,41 @@ const PackageItem = (props) => {
 export default PackageItem
 
 const styles = StyleSheet.create({
-    container: {
+    container_light: {
         flexDirection: 'row',
         backgroundColor: '#fff',
         margin: 10,
         borderRadius: 5,
         padding: 10
     },
-    text_item_title_big: {
+    container_dark: {
+        flexDirection: 'row',
+        backgroundColor: '#14213d',
+        margin: 10,
+        borderRadius: 5,
+        padding: 10,
+        borderColor: '#fff',
+        borderWidth: 0.2
+    },
+    text_item_title_big_light: {
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 24
+    },
+    text_item_title_big_dark: {
         fontFamily: 'Montserrat-Bold',
         fontSize: 24,
+        color: '#fff'
     },
-    text_item_title_less: {
+    text_item_title_less_light: {
         fontFamily: 'Montserrat-Bold',
         fontSize: 20,
         textAlign: 'center'
+    },
+    text_item_title_less_dark: {
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 20,
+        textAlign: 'center',
+        color: '#fff'
     },
     text_item_title: {
         fontFamily: 'Montserrat-Bold',
@@ -87,10 +110,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 0,
         alignItems: 'center',
     },
-    sub_tile: {
+    sub_title_light: {
         fontFamily: 'Montserrat-SemiBold',
         flex: 1,
         flexWrap: 'wrap'
+    },
+    sub_title_dark: {
+        fontFamily: 'Montserrat-SemiBold',
+        flex: 1,
+        flexWrap: 'wrap',
+        color: '#fff'
     },
     text_item_package: {
         fontFamily: 'Montserrat-SemiBold',
@@ -98,11 +127,18 @@ const styles = StyleSheet.create({
         color: '#0d41e1',
         flex: 2,
     },
-    text_item: {
+    text_item_light: {
         flex: 1,
         fontFamily: 'Montserrat-Bold',
         fontSize: 18,
         flexWrap: 'wrap'
+    },
+    text_item_dark: {
+        flex: 1,
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 18,
+        flexWrap: 'wrap',
+        color: '#fff'
     },
     item_container: {
         flex: 2,
