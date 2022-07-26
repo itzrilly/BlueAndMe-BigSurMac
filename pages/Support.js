@@ -1,16 +1,21 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity, ScrollView } from 'react-native'
 import { StatusBar } from 'expo-status-bar'
-import { useSelector } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
+import { selectLanguage } from '../reduxStore/ActionsLanguage'
 
-const Support = () => {
+const Support = (props) => {
+
+    // Getting Language for translation
+    const lg = props.selectedLanguage
 
     const theme = useSelector(state => state.theme)
+    //const home = props.selectedLanguage
     
     return(
         <ScrollView style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
             <View style={styles.title_view}>
-                <Text style={styles.title_text}>Aide</Text>
+                <Text style={styles.title_text}>{lg.help}</Text>
             </View>
 
             <View style={styles.img_container}>
@@ -29,7 +34,7 @@ const Support = () => {
                         onPress={ () => {} }
                         style={styles.btn_rv_action}
                     >
-                        <Text style={ theme.mode == 'light' ? styles.btn_text_light : styles.btn_text_dark }>Consulter</Text>
+                        <Text style={ theme.mode == 'light' ? styles.btn_text_light : styles.btn_text_dark }>{lg.consult}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.l_view}>
@@ -49,7 +54,7 @@ const Support = () => {
                         onPress={ () => {} }
                         style={styles.btn_rv_action}
                     >
-                        <Text style={ theme.mode == 'light' ? styles.btn_text_light : styles.btn_text_dark }>Consulter</Text>
+                        <Text style={ theme.mode == 'light' ? styles.btn_text_light : styles.btn_text_dark }>{lg.consult}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.l_view}>
@@ -64,12 +69,12 @@ const Support = () => {
                 onPress={() => {}}
                 >
                 <View style={styles.r_view}>
-                    <Text style={ theme.mode == 'light' ? styles.rv_text_light : styles.rv_text_dark }>Contactez-nous</Text>
+                    <Text style={ theme.mode == 'light' ? styles.rv_text_light : styles.rv_text_dark }>{lg.contactUs}</Text>
                     <TouchableOpacity
                         onPress={ () => {} }
                         style={styles.btn_rv_action}
                     >
-                        <Text style={ theme.mode == 'light' ? styles.btn_text_light : styles.btn_text_dark }>Appeler</Text>
+                        <Text style={ theme.mode == 'light' ? styles.btn_text_light : styles.btn_text_dark }>{lg.call}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.l_view}>
@@ -87,7 +92,13 @@ const Support = () => {
 
 }
 
-export default Support
+const mapStateToProps = state => {
+    return {
+        selectedLanguage: state.language
+    }
+}
+
+export default connect(mapStateToProps, { selectLanguage })(Support)
 
 const styles = StyleSheet.create({
     container_light: {
@@ -122,7 +133,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#fff',
         margin: 11,
-        padding: 10
+        padding: 10,
+        borderRadius: 5
     },
     item_container_dark: {
         flex: 1,
@@ -130,6 +142,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#14213d',
         margin: 11,
         padding: 10,
+        borderRadius: 5,
         borderColor: '#fff',
         borderWidth: 0.2
     },

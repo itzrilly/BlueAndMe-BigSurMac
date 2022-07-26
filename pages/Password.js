@@ -1,16 +1,23 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity, Dimensions } from 'react-native'
+import { connect, useSelector } from 'react-redux'
+import { selectLanguage } from '../reduxStore/ActionsLanguage'
 
-const Password = () => {
+const Password = (props) => {
+    
+    const lg = props.selectedLanguage
+
+    const theme = useSelector(state => state.theme)
+
     return (
-        <View style={styles.container}>
+        <View style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
 
             <View style={styles.title_view}>
                 {/*<Image
                     source={ require('../assets/images/img/password.png') }
                     style={styles.inner_icon}
                 />*/}
-                <Text style={styles.title_text}>Modifier mon mot de passe</Text>
+                <Text style={styles.title_text}>{lg.updatePassword}</Text>
             </View>
 
             <View style={styles.img_container}>
@@ -22,18 +29,21 @@ const Password = () => {
 
             <View style={styles.form_view}>
                 <TextInput 
-                    placeholder='Mot de passe actuel'
-                    style={styles.text_input}
+                    placeholder={lg.currentPwd}
+                    style={ theme.mode == 'light' ? styles.text_input_light : styles.text_input_dark }
+                    placeholderTextColor={ theme.mode == 'light' ? '#000' : '#fff' }
                 />
 
                 <TextInput 
-                    placeholder='Nouveau mot de passe' 
-                    style={styles.text_input}
+                    placeholder={lg.newPwd}
+                    style={ theme.mode == 'light' ? styles.text_input_light : styles.text_input_dark }
+                    placeholderTextColor={ theme.mode == 'light' ? '#000' : '#fff' }
                 />
 
                 <TextInput 
-                    placeholder='Retaper le nouveau mot de passe'
-                    style={styles.text_input}
+                    placeholder={lg.reNewPwd}
+                    style={ theme.mode == 'light' ? styles.text_input_light : styles.text_input_dark }
+                    placeholderTextColor={ theme.mode == 'light' ? '#000' : '#fff' }
                 />
 
                 <View style={styles.btn_container}>
@@ -41,7 +51,7 @@ const Password = () => {
                             onPress={ () => {} }
                             style={styles.btn}
                         >
-                            <Text style={styles.text_btn}>Valider</Text>
+                            <Text style={styles.text_btn}>{lg.validBtn}</Text>
                         </TouchableOpacity>
                     </View>
             </View>
@@ -50,9 +60,21 @@ const Password = () => {
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        selectedLanguage: state.language
+    }
+}
+
+export default connect(mapStateToProps, { selectLanguage })(Password)
+
 const styles = StyleSheet.create({
-    container: {
+    container_light: {
         flex: 1
+    },
+    container_dark: {
+        flex: 1,
+        backgroundColor: '#14213d'
     },
     title_view: {
         backgroundColor: '#0d41e1',
@@ -84,12 +106,20 @@ const styles = StyleSheet.create({
     form_view: {
         margin: 20
     },
-    text_input: {
+    text_input_light: {
         borderBottomWidth: 1,
         borderColor: '#4632A1',
         padding: 10,
         margin: 10,
         fontFamily: 'Montserrat-Regular'
+    },
+    text_input_dark: {
+        borderBottomWidth: 1,
+        borderColor: '#4632A1',
+        padding: 10,
+        margin: 10,
+        fontFamily: 'Montserrat-Regular',
+        color: '#fff'
     },
     btn_container: {
         marginTop: 20
@@ -108,8 +138,7 @@ const styles = StyleSheet.create({
     text_btn: {
         color: '#fff',
         fontFamily: 'Montserrat-SemiBold',
-        fontSize: 22
+        fontSize: 22,
+        textTransform: 'uppercase'
     }
 })
-
-export default Password;

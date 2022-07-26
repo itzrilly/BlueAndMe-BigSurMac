@@ -1,9 +1,11 @@
 import { legacy_createStore, combineReducers } from 'redux'
-import themeReducer from './Reducers'
+import themeReducer from './ThemeReducer'
+import languageReducer from './LanguageReducer'
 
 // Mettre en place un reducer général
 const rootReducer = combineReducers({
-    theme: themeReducer
+    theme: themeReducer,
+    language: languageReducer
 })
 
 // Créer un store avec le reducer

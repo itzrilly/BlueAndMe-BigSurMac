@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity, Share
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
 import * as StoreReview from 'react-native-store-review'
 import { StatusBar } from 'expo-status-bar'
-import { useSelector, useDispatch } from 'react-redux'
-import { switchMode } from '../reduxStore/Actions'
+import { useSelector, useDispatch, connect } from 'react-redux'
+import { switchMode } from '../reduxStore/ActionsTheme'
+import { selectLanguage } from '../reduxStore/ActionsLanguage'
 
 const CustomDrawer = (props) => {
     const { navigation } = props
@@ -12,6 +13,8 @@ const CustomDrawer = (props) => {
     const theme = useSelector(state => state.theme)
     const dispatch = useDispatch()
     const [mode, setMode] = useState(theme.mode)
+
+    const menu = props.selectedLanguage
 
     const handleThemeChange = () => { 
         dispatch(switchMode(theme.mode === 'light' ? 'dark' : 'light'));
@@ -95,7 +98,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_user_ios_black.png') : require('../assets/images/icons/ic_user_ios_gray.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Mes informations</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.myInfos}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -113,7 +116,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_plan.png') : require('../assets/images/icons/ic_plan_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Plan tarifaire</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.tariffPlan}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -122,7 +125,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_password.png') : require('../assets/images/icons/ic_password_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Mot de passe</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.password}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -131,7 +134,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_heraut.png') : require('../assets/images/icons/ic_heraut_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Dernières offres</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.latestOffers}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -140,7 +143,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_share.png') : require('../assets/images/icons/ic_share_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Partager</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.share}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -149,7 +152,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_rank.png') : require('../assets/images/icons/ic_rank_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Noter Blue And Me</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.rate}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -158,7 +161,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_tutorial.png') : require('../assets/images/icons/ic_tutorial_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Tutoriel</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.tutorial}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -167,7 +170,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_aboutus.png') : require('../assets/images/icons/ic_aboutus_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>A propos de nous</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.aboutUs}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -176,7 +179,7 @@ const CustomDrawer = (props) => {
                         style={styles.btn}>
                         <View style={styles.inner_btn_view}>
                         <Image source={ mode == 'light' ? require('../assets/images/icons/ic_language.png') : require('../assets/images/icons/ic_language_white.png') } style={styles.icon} />
-                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Langue</Text>
+                            <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.language}</Text>
                         </View>
                     </TouchableOpacity>
 
@@ -269,7 +272,10 @@ const CustomDrawer = (props) => {
                             source={ mode == 'light' ? require('../assets/images/icons/ic_moon.png') : require('../assets/images/icons/ic_moon_light.png') }
                             style={styles.icon} 
                         />
-                        <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Mode Sombre</Text>
+                        { mode == 'light' ?
+                            (<Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.darkMode}</Text>) :
+                            (<Text style={styles.text_btn_dark}>{menu.lightMode}</Text>)
+                        }
                     </View>
                 </TouchableOpacity>
 
@@ -282,7 +288,7 @@ const CustomDrawer = (props) => {
                             source={ mode == 'light' ? require('../assets/images/icons/ic_signout.png') : require('../assets/images/icons/ic_signout_light.png') }
                             style={styles.icon} 
                         />
-                        <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>Se déconnecter</Text>
+                        <Text style={mode == 'light' ? styles.text_btn_light : styles.text_btn_dark}>{menu.logOut}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -293,7 +299,13 @@ const CustomDrawer = (props) => {
     )
 }
 
-export default CustomDrawer
+const mapStateToProps = state => {
+    return {
+        selectedLanguage: state.language
+    }
+}
+
+export default connect(mapStateToProps, { selectLanguage })(CustomDrawer)
 
 const styles = StyleSheet.create({
     container: {

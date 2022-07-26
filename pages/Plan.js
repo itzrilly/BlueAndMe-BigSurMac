@@ -1,15 +1,25 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { connect, useSelector } from 'react-redux'
+import { selectLanguage } from '../reduxStore/ActionsLanguage'
 
-const Plan = ({ navigation }) => {
+const Plan = (props) => {
+    const navigation = useNavigation()
+
+    const lg = props.selectedLanguage
+
+    const theme = useSelector(state => state.theme)
+
     return (
-        <View style={styles.container}>
+        <View style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
             <View style={styles.title_view}>
-                <Text style={styles.title_text}>MON PLAN TARIFAIRE</Text>
+                <Text style={styles.title_text}>{lg.myTariffPlan}</Text>
             </View>
 
-            <TouchableOpacity style={styles.plan_view}>
-                <Text style={styles.text_info}>Plan tarifaire actuel: 
+            <TouchableOpacity 
+                style={ theme.mode == 'light' ? styles.plan_view_light : styles.plan_view_dark }>
+                <Text style={ theme.mode == 'light' ? styles.text_info_light : styles.text_info_dark }>{lg.currentTariffPlan}: 
                     <Text style={styles.text_plan}> ULSERVICE</Text>
                 </Text>
                 <Image source={ require('../assets/images/icons/ic_plan_detail.png') } style={styles.icon} />
@@ -17,19 +27,31 @@ const Plan = ({ navigation }) => {
             
             <TouchableOpacity 
                 onPress={ () => { navigation.navigate('ChoicePlan') } }
-                style={styles.plan_view}
+                style={ theme.mode == 'light' ? styles.plan_view_light : styles.plan_view_dark }
             >
-                <Text style={styles.text_info}>Changer de plan tarifiare</Text>
+                <Text style={ theme.mode == 'light' ? styles.text_info_light : styles.text_info_dark }>{lg.changeTariffPlan}</Text>
                 <Image source={ require('../assets/images/icons/ic_right_chevron.png') } style={styles.icon} />
             </TouchableOpacity>
         </View>
     )
 }
 
+const mapStateToProps = state => {
+    return {
+        selectedLanguage: state.language
+    }
+}
+
+export default connect(mapStateToProps, { selectLanguage })(Plan)
+
 const styles = StyleSheet.create({
-    container: {
+    container_light: {
         flex: 1,
         backgroundColor: '#ddd'
+    },
+    container_dark: {
+        flex: 1,
+        backgroundColor: '#14213d'
     },
     title_view: {
         backgroundColor: '#0d41e1', 
@@ -44,7 +66,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center'
     },
-    plan_view: {
+    plan_view_light: {
         backgroundColor: '#fff',
         padding: 15,
         marginBottom: 5,
@@ -52,11 +74,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between'
     },
-    text_info: {
+    plan_view_dark: {
+        backgroundColor: '#14213d',
+        padding: 15,
+        marginBottom: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderTopColor: '#ddd',
+        borderBottomColor: '#ddd',
+        borderWidth: 0.3
+    },
+    text_info_light: {
         fontFamily: 'Montserrat-Regular',
         fontSize: 16,
         padding: 10,
         textTransform: 'uppercase'
+    },
+    text_info_dark: {
+        fontFamily: 'Montserrat-Regular',
+        fontSize: 16,
+        padding: 10,
+        textTransform: 'uppercase',
+        color: '#fff'
     },
     text_plan: {
         fontFamily: 'Montserrat-SemiBold',
@@ -66,5 +106,3 @@ const styles = StyleSheet.create({
         width: 23
     },
 })
-
-export default Plan

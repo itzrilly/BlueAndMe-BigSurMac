@@ -6,9 +6,12 @@ import allinone  from '../helpers/Aio'
 import onlydata from '../helpers/Od'
 //import AsyncStorage from '@react-native-async-storage/async-storage'
 import { StatusBar } from 'expo-status-bar'
-import { useSelector } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
+import { selectLanguage } from '../reduxStore/ActionsLanguage'
 
 const Service = ( props ) => {
+
+    const lg = props.selectedLanguage
 
     const [ data, setData ] = useState([])
     const [ press, setPress ] = useState('active')
@@ -66,7 +69,7 @@ const Service = ( props ) => {
             </View> */}
 
             <View style={styles.title_view}>
-                <Text style={styles.title_text}>TOUS NOS OFFRES BLUETIFUL</Text>
+                <Text style={styles.title_text}>{lg.allBlueOffers}</Text>
             </View>
 
             <View 
@@ -76,13 +79,13 @@ const Service = ( props ) => {
                     onPress={renderItem}
                     style={[{backgroundColor: press === 'active' ? '#0d41e1' : 'darkblue', borderTopRightRadius: press === 'active' ? 0 : 50, borderBottomRightRadius: press === 'active' ? 0 : 50}, styles.tab_btn]}
                 >
-                    <Text style={styles.top_tab_text}>Forfait tout-en-un</Text>
+                    <Text style={styles.top_tab_text}>{lg.allInOnePlan}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={re_renderItem}
                     style={[{backgroundColor: press === 'active' ? 'darkblue' : '#0d41e1', borderTopLeftRadius: press === 'active' ? 50 : 0, borderBottomLeftRadius: press === 'active' ? 50 : 0}, styles.tab_btn]}
                 >
-                    <Text style={styles.top_tab_text}>Internet uniquement</Text>
+                    <Text style={styles.top_tab_text}>{lg.onlyInternet}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -131,7 +134,13 @@ const Service = ( props ) => {
 
 }
 
-export default Service
+const mapStateToProps = state => {
+    return {
+        selectedLanguage: state.language
+    }
+}
+
+export default connect(mapStateToProps, { selectLanguage })(Service)
 
 const styles = StyleSheet.create({
     container_light: {

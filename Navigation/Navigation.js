@@ -87,6 +87,7 @@ const BlueStackOptionNavigator = () => {
 const BlueTabNavigator = (props) => {
     const navigation = useNavigation()
     const theme = useSelector(state => state.theme)
+    const lg = useSelector(state => state.language)
     
     return (
         <BlueTab.Navigator initialRouteName='Accueil' screenOptions={ { 
@@ -118,7 +119,9 @@ const BlueTabNavigator = (props) => {
                                 source={require('../assets/images/icons/ic_home_light.png')}
                                 style={styles.icon} />)
                         )}
-                        <Text style={ theme.mode == 'light' ? styles.title_light : styles.title_dark }>Accueil</Text>
+                        <Text style={ theme.mode == 'light' ? styles.title_light : styles.title_dark }>
+                            {lg.language == 'Langue' ? 'Accueil' : 'Home'}
+                        </Text>
                     </View>
             }} />
             {/*
@@ -453,7 +456,7 @@ const Navigation = () => {
                 <BlueStack.Screen
                     name='Language'
                     component={Language}
-                    options={{ headerShown: true, headerTitle: 'Choix de la langue' }}
+                    options={{ headerShown: true, headerTitle: '' }}
                 />
             </BlueStack.Navigator>
         </NavigationContainer>

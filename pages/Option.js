@@ -1,9 +1,17 @@
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { View, Text, FlatList, Alert, Button, StyleSheet, TouchableOpacity, Image, Dimensions, ScrollView } from 'react-native'
-import { useSelector } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
+import { selectLanguage } from '../reduxStore/ActionsLanguage'
 
-const Option = ({ navigation }) => {
+const Option = (props) => {
+    const navigation = useNavigation()
+
+    // Getting theme state
     const theme = useSelector(state => state.theme)
+
+    // Getting Language for translation
+    const lg = props.selectedLanguage
 
     return(
         <ScrollView style={ theme.mode == 'light' ? styles.container_light : styles.container_dark }>
@@ -33,7 +41,7 @@ const Option = ({ navigation }) => {
                         source={ require('../assets/images/icons/ic_forfait.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Souscrire à un forfait Blue</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.subscribeBluePlan}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
@@ -41,7 +49,7 @@ const Option = ({ navigation }) => {
                         source={ require('../assets/images/icons/ic_gift.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Offrir un forfait Blue à un proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.offerBluePlan}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -51,14 +59,14 @@ const Option = ({ navigation }) => {
                         source={ require('../assets/images/icons/ic_location.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Call Box Blue le plus proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.blueCallBox}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_localise_plan.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Agence Blue la plus proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.blueAgency}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -68,14 +76,14 @@ const Option = ({ navigation }) => {
                         source={ require('../assets/images/icons/ic_payment.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Recharger votre compte</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.rechargeYourAccount}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_payment_friend_blue.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Recharger le compte d'un proche</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.rechargeFriendAccount}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -85,7 +93,7 @@ const Option = ({ navigation }) => {
                         source={ require('../assets/images/icons/ic_preferred_number.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Numéros préférés</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.favoriteNumbers}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
@@ -102,14 +110,14 @@ const Option = ({ navigation }) => {
                         source={ require('../assets/images/icons/ic_info_call.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Infos dernier appel</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.latestCallsInfos}</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={ theme.mode == 'light' ? styles.item_light : styles.item_dark }>
                     <Image
                         source={ require('../assets/images/icons/ic_blue_new_offers.png') }
                         style={styles.icon}
                     />
-                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>Découvrir les dernières offres de Blue</Text>
+                    <Text style={ theme.mode == 'light' ? styles.text_light : styles.text_dark }>{lg.latestblueOffers}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -118,7 +126,13 @@ const Option = ({ navigation }) => {
 
 }
 
-export default Option
+const mapStateToProps = state => {
+    return {
+        selectedLanguage: state.language
+    }
+}
+
+export default  connect(mapStateToProps, { selectLanguage })(Option)
 
 const styles = StyleSheet.create({
     container_light: {

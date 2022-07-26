@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
         color: '#fff'
     },
     icon: {
-        height: 50,
-        width: 50,
+        height: 45,
+        width: 45,
         margin: 5
     },
     item_left_container_light: {
